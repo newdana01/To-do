@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  postgresql:
+    image: postgres:14.2
+    restart: always
+    volumes:
+      - ./postgresql/data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_PASSWORD: ${DB_PW}
+      POSTGRES_NAME: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      TZ: 'Asia/Seoul'
+  app:
+    depends_on:
+      - postgresql
+    working_dir: /usr/src/app
+    env_file:
+      - .env
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app
+    ports:
+      - 3000:3000
+    # command: bash -c "npm start"
