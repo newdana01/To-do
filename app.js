@@ -3,6 +3,9 @@ const http = require('http');
 
 const models = require('./models/index.js');
 
+const app = express();
+const server = http.createServer(app);
+
 models.sequelize
   .sync()
   .then(() => {
@@ -12,9 +15,6 @@ models.sequelize
     console.log('연결 실패');
     console.log(err);
   });
-
-const app = express();
-const server = http.createServer(app);
 
 server.listen(3000, () => {
   console.log('running server!');
