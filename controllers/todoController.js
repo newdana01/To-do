@@ -12,7 +12,7 @@ const getOneTodo = async (req, res, next) => {
 const getTodoList = async (req, res, next) => {
   try {
     const { limit, offset } = req.query;
-    const todoList = TodoService.getTodoList(limit, offset);
+    const todoList = await TodoService.getTodoList(limit, offset);
     return res.status(200).json(todoList);
   } catch (err) {
     next(err);
