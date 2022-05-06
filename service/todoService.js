@@ -7,6 +7,21 @@ const getOneTodo = async (id) => {
   return { todo };
 };
 
+const getTodoList = async (limit, offset) => {
+  try {
+    const todoList = await Todo.findAll({
+      attributes: ['id', 'name', 'completed'],
+      order: ['id'],
+      limit: limit,
+      offset: (parseInt(offset) - 1) * parseInt(limit),
+      raw: true,
+    });
+    return todoList;
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
 const createTodo = async (name, completed, userId) => {
   try {
     const todo = await Todo.create({ name, completed, userId });
@@ -39,4 +54,11 @@ const updateTodo = async (id, name, completed) => {
   }
   return await Todo.update({ name, completed, completedAt }, { where: { id } });
 };
-module.exports = { getOneTodo, createTodo, deleteTodo, updateTodo };
+
+module.exports = {
+  getOneTodo,
+  createTodo,
+  deleteTodo,
+  updateTodo,
+  getTodoList,
+};
