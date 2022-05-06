@@ -9,9 +9,19 @@ const getOneTodo = async (req, res, next) => {
   }
 };
 
+const getTodoList = async (req, res, next) => {
+  try {
+    const { limit, offset } = req.query;
+    const todoList = TodoService.getTodoList(limit, offset);
+    return res.status(200).json(todoList);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const err = (err, req, res) => {
   console.log(err);
   return res.status(500).json({ message: 'Internal Server Error' });
 };
 
-module.exports = { getOneTodo };
+module.exports = { getOneTodo, getTodoList };
