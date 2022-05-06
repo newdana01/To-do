@@ -1,3 +1,5 @@
+const sequelize = require('sequelize');
+
 const { Todo } = require('../models/todos');
 
 const getOneTodo = async (id) => {
@@ -25,4 +27,16 @@ const deleteTodo = async (id) => {
     throw new Error(err);
   }
 };
-module.exports = { getOneTodo, createTodo, deleteTodo };
+
+const updateTodo = async (id, name, completed) => {
+  const todo = await Todo.findOne({ where: { id } });
+  let completedAt = null;
+  if (!todo) {
+    throw new Error('Todo does not exist');
+  }
+  if (completed === 'true') {
+    completedAt = sequelize.fn('NOW');
+  }
+  return await Todo.update({ name, completed, completedAt }, { where: { id } });
+};
+module.exports = { getOneTodo, createTodo, deleteTodo, updateTodo };

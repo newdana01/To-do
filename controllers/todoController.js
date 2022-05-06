@@ -28,9 +28,16 @@ const deleteTodo = async (req, res, next) => {
   }
 };
 
+const updateTodo = async (req, res, next) => {
+  const todoId = req.params.todoId;
+  const { name, completed } = req.body;
+  await TodoService.updateTodo(todoId, name, completed);
+  return res.status(204).json();
+};
+
 const err = (err, req, res) => {
   console.log(err);
   return res.status(500).json({ message: 'Internal Server Error' });
 };
 
-module.exports = { getOneTodo, createTodo, deleteTodo, err };
+module.exports = { getOneTodo, createTodo, deleteTodo, updateTodo, err };
