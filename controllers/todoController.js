@@ -2,7 +2,7 @@ const TodoService = require('../service/todoService');
 
 const getOneTodo = async (req, res, next) => {
   try {
-    const todo = TodoService.getOneTodo(req.query.param);
+    const todo = await TodoService.getOneTodo(req.params.todoId);
     return res.status(200).json(todo);
   } catch (err) {
     next(err);

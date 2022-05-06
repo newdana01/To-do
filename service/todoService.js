@@ -3,8 +3,26 @@ const sequelize = require('sequelize');
 const { Todo } = require('../models/todos');
 
 const getOneTodo = async (id) => {
-  const todo = await Todo.findAll({ where: { id }, raw: true });
-  return { todo };
+  try {
+    const todo = await Todo.findOne({
+      where: { id },
+      attributes: [
+        'id',
+        'name',
+        'completed',
+        'created_at',
+        'updated_at',
+        'completed_at',
+      ],
+      raw: true,
+    });
+    if (!todo) {
+      throw new Error('Todo does not exist');
+    }
+    return todo;
+  } catch (err) {
+    throw new Error(err);
+  }
 };
 
 const getTodoList = async (limit, offset) => {
