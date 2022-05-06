@@ -14,4 +14,15 @@ const createTodo = async (name, completed, userId) => {
   }
 };
 
-module.exports = { getOneTodo, createTodo };
+const deleteTodo = async (id) => {
+  try {
+    const todo = await Todo.findOne({ where: { id } });
+    if (!todo) {
+      throw new Error('Todo does not exist');
+    }
+    return await Todo.destroy({ where: { id } });
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+module.exports = { getOneTodo, createTodo, deleteTodo };
