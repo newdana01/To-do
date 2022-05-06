@@ -9,19 +9,19 @@
 `선택사유` 간편한 설정으로 깔끔하고 가독성 좋은 코드를 작성하기 위해 채택
 2. dotenv
 
-### DMBS
+### DBMS
 1. PostgreSQL
 
 <br>
 
 ## ⚒ 툴
-1. docker-compose
+1. docker-compose  
 `선택사유` 개발환경 구축과 노드, 데이터베이스를 위한 복수의 컨테이너를 다루기 위해 사용
 
 <br>
 
 ## 🏠 아키텍처
-- 3 계층 분리 설계를 따라 `router- controller - service` 로 나누어 책임을 분리
+- 3 계층 분리 설계에 따라 `router- controller - service` 로 나누어 책임을 분리
 - Sequelize ORM 사용으로 service에서 데이터베이스 접근이 이루어지고 있으며 간단한 로직을 요하는 소규모 프로젝트이므로 Data Access Layer를 따로 분리하지 않고 service 내에서 모두 처리
 ```
 ├── app.js
