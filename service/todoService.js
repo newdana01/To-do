@@ -5,4 +5,13 @@ const getOneTodo = async (id) => {
   return { todo };
 };
 
-module.exports = { getOneTodo };
+const createTodo = async (name, completed, userId) => {
+  try {
+    const todo = await Todo.create({ name, completed, userId });
+    return { todo };
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
+module.exports = { getOneTodo, createTodo };
