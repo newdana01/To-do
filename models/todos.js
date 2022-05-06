@@ -17,6 +17,9 @@ class Todo extends Sequelize.Model {
           type: Sequelize.BOOLEAN,
           defaultValue: false,
         },
+        userId: {
+          type: Sequelize.INTEGER,
+        },
         completedAt: {
           type: Sequelize.DATE,
         },
